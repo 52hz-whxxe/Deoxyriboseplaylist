@@ -151,7 +151,7 @@ input[type=search]:focus{border-color:var(--acc)}
 <div class="sign"><span class="mg">📣</span><span id="sgT">LIVE SETLIST</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\ ——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
 <div class="screen"><div class="vid" id="vid">곡을 고르면 무대 위 스크린에 영상이 뜹니다</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">곡을 골라 입장해주세요</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
-<div class="ctl"><button class="ic" id="bPrev" title="이전">◀</button><button class="ic" id="bNext" title="다음">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>원본 열기 ↗</a></div>
+<div class="ctl"><button class="ic" id="bPrev" title="이전">◀</button><button class="ic" id="bNext" title="다음">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>원본 열기 ↗</a><button class="ic" id="bCal" title="달력 열기/닫기" style="margin-left:auto">▼</button></div>
 <div class="cal" id="cal"></div>
 </section>
 <section class="side">
@@ -337,6 +337,9 @@ $("cal").onclick=e=>{
  openD.set(k,true);litDate=k;render();
  const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
 const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데뷔")&&srcOk(x)).length+" songs"};
+let calOn=true;try{calOn=localStorage.getItem("calOn")!=="0"}catch(e){}
+const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"▼":"▽"};
+$("bCal").onclick=()=>{calOn=!calOn;try{localStorage.setItem("calOn",calOn?"1":"0")}catch(e){}calUI()};calUI();
 $("bPrev").onclick=()=>step(-1);$("bNext").onclick=()=>step(1);
 RAWP=flat(DAYS);rebuild();RAWCP=COVERS;rebuildC();render();$("list").innerHTML='<div class="empty">📣 시트 불러오는 중...</div>';
 const fail=()=>{$("list").innerHTML='<div class="empty">불러오지 못했습니다<br><small>잠시 후 다시 확인해 주세요</small></div>'};
