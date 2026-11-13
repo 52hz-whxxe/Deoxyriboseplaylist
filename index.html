@@ -336,7 +336,7 @@ $("cal").onclick=e=>{
  page=Math.floor([...new Set(S.filter(srcOk).map(s=>s.d))].sort().reverse().indexOf(k)/PER);
  openD.set(k,true);litDate=k;render();
  const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
-const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데뷔")).length+" songs"};
+const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데뷔")&&srcOk(x)).length+" songs"};
 $("bPrev").onclick=()=>step(-1);$("bNext").onclick=()=>step(1);
 RAWP=flat(DAYS);rebuild();RAWCP=COVERS;rebuildC();render();$("list").innerHTML='<div class="empty">📣 시트 불러오는 중...</div>';
 const fail=()=>{$("list").innerHTML='<div class="empty">불러오지 못했습니다<br><small>잠시 후 다시 확인해 주세요</small></div>'};
