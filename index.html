@@ -209,7 +209,7 @@ let rt=null;const later=()=>{clearTimeout(rt);rt=setTimeout(()=>{if(view==="C")r
 function fillTitles(){C.forEach(c=>{if(c.title||!c.yt)return;fetch("https://www.youtube.com/oembed?format=json&url="+encodeURIComponent("https://www.youtube.com/watch?v="+c.yt)).then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{c.title=j.title||"";if(!c.uploader)c.uploader=j.author_name||"";later()}).catch(()=>{c.title="(Couldn’t load title)";later()})})}
 const $=id=>document.getElementById(id);
 let view="D",cur=-1,curC=-1,kind="s",pw=null,page=0,sel=[],tagOpen=false;
-const PER=10;let selK=[];const KORD=["커버","오리지널","출연"];
+const PER=10;let selK=[];const KORD=["cover","original","appear"];
 let mode="AND",selC=[],tagOpenC=false;const openG=new Set(),openD=new Map();
 let tcWin=true,srcF=0;
 const tcUI=()=>{$("switchPopup").textContent="Twitcast window "+(tcWin?"ON":"OFF");$("switchPopup").classList.toggle("on",tcWin)};
