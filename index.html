@@ -386,7 +386,7 @@ $("cal").onclick=e=>{
  const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
 const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데뷔")&&srcOk(x)).length+" songs"};
 let calOn=true;try{calOn=localStorage.getItem("calOn")!=="0"}catch(e){}
-const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"▽":"△"};
+const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"▽":"▼"};
 $("bCal").onclick=()=>{calOn=!calOn;try{localStorage.setItem("calOn",calOn?"1":"0")}catch(e){}calUI()};calUI();
 $("bPrev").onclick=()=>step(-1);$("bNext").onclick=()=>step(1);
 RAWP=flat(DAYS);rebuild();RAWCP=COVERS;rebuildC();render();$("list").innerHTML='<div class="empty">📣 Loading sheet...</div>';
