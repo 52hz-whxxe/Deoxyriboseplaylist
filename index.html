@@ -25,7 +25,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .stage::before{content:"";position:absolute;left:8%;right:8%;top:14%;height:50%;background:radial-gradient(closest-side,#ff2d9530,transparent);filter:blur(46px);opacity:.45;transition:opacity 1.2s;z-index:0;pointer-events:none}
 .stage.play::before{opacity:1}
 .stage>.mol{position:absolute;top:14px;right:0;width:190px;opacity:.17;fill:none;stroke:var(--acc);stroke-width:1.5;stroke-linejoin:round;pointer-events:none}
-.mg{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;font-size:26px;line-height:1;filter:drop-shadow(0 0 9px #ff2d95aa);transition:filter .8s}
+.mg{user-select:none;width:24px;height:30px;flex:none;color:var(--acc);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px var(--acc))}
 .sign{font-family:var(--disp);font-size:34px;letter-spacing:.08em;line-height:1;color:var(--acc);text-shadow:0 0 18px #ff2d9588;display:flex;align-items:center;gap:12px}
 .sign{flex-wrap:wrap}.sign .pill{font-family:var(--mono);letter-spacing:.05em;text-shadow:none;color:var(--mute)}.sign .pill.on{border-color:var(--acc);color:var(--acc)}
 .foot{margin-top:auto;border-top:1px solid var(--line);padding:14px 0 calc(14px + env(safe-area-inset-bottom,0px))}
@@ -136,9 +136,6 @@ input[type=search]:focus{border-color:var(--acc)}
 .kb .pill.on{border-color:var(--acc);color:var(--acc)}
 .kb .cnt{margin-left:3px;font-size:11px}
 .empty{color:var(--mute);text-align:center;padding:40px 0}
-.mg.boing{animation:boing .7s cubic-bezier(.3,.7,.4,1)}
-@keyframes boing{0%{transform:scale(1)}15%{transform:scale(1.55,.55)}35%{transform:scale(.7,1.5) translateY(-14px) rotate(-14deg)}55%{transform:scale(1.25,.8) rotate(9deg)}75%{transform:scale(.92,1.08) rotate(-3deg)}100%{transform:none}}
-:root.priv{--acc:#38e1c6}:root.priv .mg{filter:grayscale(.7) opacity(.7)}
 .cal{margin-top:14px;padding:10px 12px 12px;border:1px solid var(--line);border-radius:12px;background:var(--tk)}
 .cal .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;height:30px}
 .cal .ch b{font-family:var(--mono);font-size:13px;letter-spacing:.08em}
@@ -157,14 +154,7 @@ input[type=search]:focus{border-color:var(--acc)}
 .tk.lit .dt{color:#fff}
 .tk.yt.lit{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc),0 0 20px color-mix(in srgb,var(--acc) 55%,transparent)}
 .tk.yt.lit .dt{color:var(--acc)}
-:root.priv .stage::before{background:radial-gradient(closest-side,#38e1c630,transparent)}
-:root.priv .sign{text-shadow:0 0 18px #38e1c688}
-:root.priv .screen{border-color:#38e1c644;box-shadow:0 40px 80px -40px #38e1c677}
-:root.priv .play .nt b{text-shadow:0 0 22px #38e1c666}
-:root.priv .song.on{background:#38e1c614}
-:root.priv .song.on .no,:root.priv .song.on b{text-shadow:0 0 14px #38e1c666}
 
-:root.priv .cv.on .th{box-shadow:0 0 0 1px var(--acc),0 0 24px -6px #38e1c688}
 .cal .ch button:disabled{opacity:.25;cursor:default}
 .cal .cg button.gold{border-color:#ffd24a;color:#ffd24a;box-shadow:0 0 10px #ffc83a88,inset 0 0 6px #ffc83a44;animation:gd 2.6s ease-in-out infinite}
 .cal .cg button.gold.lit{background:#ffd24a;color:#241a02}
@@ -183,8 +173,8 @@ input[type=search]:focus{border-color:var(--acc)}
 <body>
 <div class="wrap">
 <section class="stage" id="stage">
-<svg class="mol" viewBox="0 0 170 90" aria-hidden="true"><path d="M50 10 76 25 76 55 50 70 24 55 24 25Z"/><path d="M102 10 128 25 128 55 102 70 76 55 76 25"/><path d="M31 29 50 18M70 29 70 51M50 62 31 51" opacity=".6"/><path d="M109 17 121 24M121 56 109 63" opacity=".6"/><path d="M128 25 148 13"/><circle cx="153" cy="10" r="4"/></svg>
-<div class="sign"><span class="mg">📣</span><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
+<svg class="mol" viewBox="0 0 170 90" aria-hidden="true"><path d="M66 38 79 28.5M91 28.5 104 38 97 60 73 60 66 38M104 38 120 30M73 60 65 74M66 38 48 30 34 38" stroke-linecap="round"/><g style="fill:var(--acc);stroke:none;font-family:var(--mono,monospace);font-size:10px"><text x="85" y="28" text-anchor="middle">O</text><text x="122" y="33">OH</text><text x="62" y="85" text-anchor="middle">HO</text><text x="32" y="42" text-anchor="end">HO</text></g></svg>
+<div class="sign"><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
 <div class="screen"><div class="vid" id="vid">Please select Live</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">choose a song and enter</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
 <div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto">▽</button></div>
@@ -202,14 +192,12 @@ input[type=search]:focus{border-color:var(--acc)}
 </div></footer>
 <script>
 const SONGS_CSV="";
-const PRIVATE_COVERS_CSV="";
 const COVERS_CSV="";
 const SHEET_XLSX="https://docs.google.com/spreadsheets/d/e/2PACX-1vSyoEIS1zzRx42zgpN8u3PQze96Q2Z_W_kMYxfu0uH8Jl_9n0jQEgAAOVVHUT-PA4d3TnRlx8KKdX9U/pub?output=xlsx";
 const DAYS=[],COVERS=[];
 const YT=/(?:youtube\.com\/(?:live|embed|shorts)\/|youtube\.com\/watch\?(?:[^#]*&)?v=|youtu\.be\/)([\w-]{11})/;
 const TC=/twitcasting\.tv\/([^\/]+)\/movie\/(\d+)/;
 const T=u=>{const m=String(u).match(/[?&#](?:t|start)=([^&#]+)/);if(!m)return 0;const v=m[1];if(/^\d+s?$/.test(v))return parseInt(v);const x=v.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/);return x?(+x[1]||0)*3600+(+x[2]||0)*60+(+x[3]||0):0};
-const PRIVATE_CSV="";
 const sec=v=>{if(typeof v==="number")return v;const p=String(v).replace(/[^\d:]/g,"").split(":").map(Number);return p.length>1?p.reduce((a,b)=>a*60+b,0):(+p[0]||0)};
 const normD=(s,fy)=>{const sn=String(s).trim();if(/^\d{5}(\.\d+)?$/.test(sn)&&+sn>20000&&+sn<80000)return new Date(Date.UTC(1899,11,30)+Math.floor(+sn)*864e5).toISOString().slice(0,10);const p=String(s).match(/\d+/g);if(!p)return String(s).trim();if(p.length===2&&fy)p.unshift(fy);if(p.length<3)return String(s).trim();let y,m,d;if(p[0].length>2)[y,m,d]=p;else if(p[2].length>2)[m,d,y]=p;else if(+p[0]>12)[y,m,d]=p;else[m,d,y]=p;if(y.length===2)y="20"+y;return y+"-"+m.padStart(2,"0")+"-"+d.padStart(2,"0")};
 const tags=s=>String(s||"").split(/\s*[,，、\/]\s*/).map(x=>x.trim()).filter(Boolean);
@@ -220,10 +208,10 @@ function colmap(rows,spec){const h=(rows[0]||[]).map(x=>String(x).replace(/\s/g,
 const gv=(r,i)=>i<0?"":String(r[i]||"").trim();
 function fromSheet(t){const rows=parseCSV(t);if(!rows.length)return[];const c=colmap(rows,{d:[["Date"],0],u:[["Link"],1],s:[[],-1],t:[["Title"],2],a:[["Vocal"],4],c:[["Arist","Artist"],5],x:[["Comment"],-1],l:[["Label"],-1],y:[["Yomi"],3]});let d="",u="",a="",l="",fy="";const out=[];rows.slice(1).forEach(r=>{const nd=gv(r,c.d);if(nd){d=normD(nd,fy);if(/^\d{4}-/.test(d))fy=d.slice(0,4);u="";a="";l=""}if(gv(r,c.l))l=gv(r,c.l);if(gv(r,c.u))u=gv(r,c.u);if(!gv(r,c.t))return;out.push({d,url:u,alt:"",comment:gv(r,c.x),start:gv(r,c.s)?sec(gv(r,c.s)):undefined,title:gv(r,c.t),artist:gv(r,c.a),composer:gv(r,c.c),lab:l,yomi:gv(r,c.y)})});return out}
 function fromCovers(t){const rows=parseCSV(t);if(!rows.length)return[];const c=colmap(rows,{u:[["Link"],0],d:[["Date"],1],t:[["Title"],2],p:[["uploader"],3],a:[["vocal"],4],h:[[],-1],g:[["category"],5]});return rows.slice(1).filter(r=>gv(r,c.u)).map(r=>{const up=gv(r,c.p);return{d:normD(gv(r,c.d)),url:gv(r,c.u),title:gv(r,c.t),uploader:up,artist:c.a>=0?gv(r,c.a):up,thumb:gv(r,c.h),kind:gv(r,c.g)}})}
-let S=[],C=[],RAWP=[],RAWV=[],RAWCP=[],RAWCV=[],priv=false;
-const rebuild=()=>build(priv?RAWV:RAWP);
+let S=[],C=[],RAWP=[],RAWCP=[];
+const rebuild=()=>build(RAWP);
 const build=RAW=>{S=RAW.map((s,i)=>({s,i})).sort((a,b)=>String(a.s.d||"").localeCompare(String(b.s.d||""))||a.i-b.i).map(x=>x.s).map((s,i)=>{const o={...s,id:i,artists:tags(s.artist),composer:s.composer||"",composers:tags(s.composer)};[s.url,s.alt].forEach(u=>{if(!u)return;const y=u.match(YT),m=u.match(TC);if(y)o.yt={id:y[1],t:T(u)};if(m)o.tc={user:m[1],mv:m[2],t:T(u)}});if(s.start!=null){if(o.yt)o.yt.t=s.start;if(o.tc)o.tc.t=s.start}o.t=(o.yt||o.tc||{t:0}).t;return o})};
-const rebuildC=()=>buildC(priv?RAWCV:RAWCP);
+const rebuildC=()=>buildC(RAWCP);
 const buildC=A=>{C=A.map((c,i)=>({...c,i,yt:(c.url.match(YT)||[])[1],artists:tags(c.artist),kinds:tags(c.kind)}));fillTitles()};
 let rt=null;const later=()=>{clearTimeout(rt);rt=setTimeout(()=>{if(view==="C")render()},250)};
 function fillTitles(){C.forEach(c=>{if(c.title||!c.yt)return;fetch("https://www.youtube.com/oembed?format=json&url="+encodeURIComponent("https://www.youtube.com/watch?v="+c.yt)).then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{c.title=j.title||"";if(!c.uploader)c.uploader=j.author_name||"";later()}).catch(()=>{c.title="(Couldn’t load title)";later()})})}
@@ -344,18 +332,6 @@ $("tagwrap").onclick=e=>{
  const t=e.target.closest("[data-t]");if(!t)return;const v=t.dataset.t;sel=sel.includes(v)?sel.filter(x=>x!==v):[...sel,v];page=0;render()};
 $("q").oninput=()=>{page=0;render()};
 [["tD","D"],["tA","A"],["tC","C"]].forEach(([id,v])=>$(id).onclick=()=>{view=v;page=0;sel=[];selC=[];selK=[];tagOpen=false;tagOpenC=false;document.querySelectorAll(".seg button").forEach(b=>b.classList.toggle("on",b.id===id));render()});
-let boingBusy=false;
-$("stage").querySelector(".mg").onclick=function(){
- if(boingBusy)return;boingBusy=true;const m=this;m.classList.remove("boing");void m.offsetWidth;m.classList.add("boing");
- setTimeout(()=>{
-  priv=!priv;document.documentElement.classList.toggle("priv",priv);
-  $("sgT").textContent=priv?"· · · Playlist":"MolList";$("sgS").textContent=priv?"개인용 플리입니다 확성기 이모티콘을 누르면 돌아갑니다":"┍——- /ᐠ｡ꞈ｡ᐟ\ -——┑";
-    sel=[];selC=[];selK=[];tagOpen=false;tagOpenC=false;openD.clear();openG.clear();page=0;$("q").value="";litDate="";
-  cur=-1;curC=-1;kind="s";rebuild();rebuildC();
-  $("stage").classList.remove("play");$("vid").textContent="Select a song to play";$("pT").textContent="WAITING...";$("pA").textContent="Pick a song to enter";$("pD").textContent="--.--.--";$("pS").textContent="--:--";$("pL").textContent="@deoxymole";$("bOpen").hidden=true;
-  render();
- },320);
- setTimeout(()=>{m.classList.remove("boing");boingBusy=false},720)};
 
 let calY=0,calM=0,calSig="",litDate="",DB="2011-12-16";
 function cal(){
@@ -393,13 +369,11 @@ RAWP=flat(DAYS);rebuild();RAWCP=COVERS;rebuildC();render();$("list").innerHTML='
 const fail=()=>{$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'};
 if(!SONGS_CSV&&!COVERS_CSV&&!SHEET_XLSX)$("list").innerHTML='<div class="empty">Please check again in a moment</div>';
 if(SONGS_CSV)fetch(SONGS_CSV).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{RAWP=fromSheet(t);rebuild();cur=-1;page=0;render()}).catch(fail);
-if(PRIVATE_CSV)fetch(PRIVATE_CSV).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{RAWV=fromSheet(t);rebuild();render()}).catch(()=>{});
 if(COVERS_CSV)fetch(COVERS_CSV).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{RAWCP=fromCovers(t);rebuildC();curC=-1;page=0;render()}).catch(fail);
-if(PRIVATE_COVERS_CSV)fetch(PRIVATE_COVERS_CSV).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{RAWCV=fromCovers(t);rebuildC();render()}).catch(()=>{});
 if(SHEET_XLSX)fetch(SHEET_XLSX).then(r=>{if(!r.ok)throw new Error(r.status);return r.arrayBuffer()}).then(b=>{
  const wb=XLSX.read(b,{type:"array"});
  const get=(names,i)=>{const n=wb.SheetNames.find(x=>names.includes(x.trim().toLowerCase()))||wb.SheetNames[i];return n?XLSX.utils.sheet_to_csv(wb.Sheets[n],{dateNF:"yyyy-mm-dd",blankrows:false}):""};
- RAWP=fromSheet(get(["live"],0));RAWCP=fromCovers(get(["video"],1));RAWV=fromSheet(get(["playlist"],2));RAWCV=fromCovers(get(["mylist"],3));rebuild();rebuildC();cur=-1;curC=-1;page=0;render();
+ RAWP=fromSheet(get(["live"],0));RAWCP=fromCovers(get(["video"],1));rebuild();rebuildC();cur=-1;curC=-1;page=0;render();
 }).catch(e=>{console.error(e);$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'});
 </script>
 <script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;b.addEventListener("click",function(){var o=!a.classList.contains("open");a.classList.toggle("open",o);b.classList.toggle("on",o);b.setAttribute("aria-expanded",o);if(o)setTimeout(function(){a.scrollIntoView({behavior:"smooth",block:"end"})},180)})})();</script>
