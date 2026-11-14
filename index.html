@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SETLIST</title>
+<title>【MolList】</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%2307060a%27/%3E%3Ctext x=%2732%27 y=%2748%27 font-size=%2744%27 font-weight=%27900%27 font-family=%27Arial,sans-serif%27 text-anchor=%27middle%27 fill=%27%23ff2d95%27%3EM%3C/text%3E%3C/svg%3E">
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -12,8 +14,8 @@
 --disp:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
-.wrap{position:relative;display:grid;grid-template-columns:1fr;max-width:1360px;margin:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column}
+.wrap{position:relative;display:grid;grid-template-columns:1fr;max-width:1360px;margin:0 auto;width:100%}
 @media(min-width:960px){.wrap{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:44px;padding:0 32px}}
 .stage{position:relative;padding:24px 18px 10px}
 @media(min-width:960px){.stage{position:sticky;top:0;height:100vh;padding:30px 0;display:flex;flex-direction:column;justify-content:center;justify-content:safe center;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
@@ -26,7 +28,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .mg{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;font-size:26px;line-height:1;filter:drop-shadow(0 0 9px #ff2d95aa);transition:filter .8s}
 .sign{font-family:var(--disp);font-size:34px;letter-spacing:.08em;line-height:1;color:var(--acc);text-shadow:0 0 18px #ff2d9588;display:flex;align-items:center;gap:12px}
 .sign{flex-wrap:wrap}.sign .pill{font-family:var(--mono);letter-spacing:.05em;text-shadow:none;color:var(--mute)}.sign .pill.on{border-color:var(--acc);color:var(--acc)}
-.about{margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#0d0b11;color:var(--mute);font-size:12px;line-height:1.7}
+.foot{margin-top:auto;border-top:1px solid var(--line);padding:14px 0 calc(14px + env(safe-area-inset-bottom,0px))}
+.fin{max-width:1360px;margin:0 auto;padding:0 18px;text-align:left}
+@media(min-width:960px){.fin{padding:0 32px}}
+.foot .pill{font-family:var(--mono);letter-spacing:.05em;color:var(--mute)}.foot .pill.on{border-color:var(--acc);color:var(--acc)}
+.about{display:grid;grid-template-rows:0fr;max-width:640px;visibility:hidden;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
+.about.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.abi{min-height:0;overflow:hidden;margin-top:6px;border:1px solid var(--line);border-radius:4px 14px 14px 14px;background:#0d0b11;color:var(--mute);font-size:12px;line-height:1.7;padding:0 14px;text-align:left;opacity:0;clip-path:inset(0 88% 100% 0 round 14px);transition:clip-path .45s cubic-bezier(.2,.8,.2,1),opacity .25s,padding .4s}
+.about.open .abi{opacity:1;clip-path:inset(0 0 0 0 round 14px);padding:12px 14px}
 .about p{margin:0}.about p+p{margin-top:4px}
 .sign small{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--mute);text-shadow:none}
 .live{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3a2a36}
@@ -169,11 +178,10 @@ input[type=search]:focus{border-color:var(--acc)}
 <div class="wrap">
 <section class="stage" id="stage">
 <svg class="mol" viewBox="0 0 170 90" aria-hidden="true"><path d="M50 10 76 25 76 55 50 70 24 55 24 25Z"/><path d="M102 10 128 25 128 55 102 70 76 55 76 25"/><path d="M31 29 50 18M70 29 70 51M50 62 31 51" opacity=".6"/><path d="M109 17 121 24M121 56 109 63" opacity=".6"/><path d="M128 25 148 13"/><circle cx="153" cy="10" r="4"/></svg>
-<div class="sign"><span class="mg">📣</span><span id="sgT">SETLIST</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button><button class="pill sm" id="aboutBtn" aria-expanded="false" aria-controls="about">ⓘ About</button></div>
-<div class="about" id="about" hidden><p>An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p>Playback uses only official features and links, so plays are counted as official views.</p><p style="font-size:10.5px"> # Songs marked with ※ do not appear under the Name tab. You can still find them in the Date view or through search.</p></div>
+<div class="sign"><span class="mg">📣</span><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
 <div class="screen"><div class="vid" id="vid">Please select Live</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">choose a song and enter</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
-<div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto">▼</button></div>
+<div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto">▽</button></div>
 <div class="cal" id="cal"></div>
 </section>
 <section class="side">
@@ -182,6 +190,10 @@ input[type=search]:focus{border-color:var(--acc)}
 <div id="list"></div>
 </section>
 </div>
+<footer class="foot"><div class="fin">
+<button class="pill sm" id="aboutBtn" aria-expanded="false" aria-controls="about">ⓘ About</button>
+<div class="about" id="about"><div class="abi"><p>An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p>Playback uses only official features and links, so plays are counted as official views.</p><p>Songs marked with ※ do not appear under the Name tab. You can still find them in the Date view or through search.</p></div></div>
+</div></footer>
 <script>
 const SONGS_CSV="";
 const PRIVATE_COVERS_CSV="";
@@ -323,7 +335,7 @@ $("stage").querySelector(".mg").onclick=function(){
  if(boingBusy)return;boingBusy=true;const m=this;m.classList.remove("boing");void m.offsetWidth;m.classList.add("boing");
  setTimeout(()=>{
   priv=!priv;document.documentElement.classList.toggle("priv",priv);
-  $("sgT").textContent=priv?"· · · Playlist":"SETLIST";$("sgS").textContent=priv?"개인용 플리입니다 확성기 이모티콘을 누르면 돌아갑니다":"┍——- /ᐠ｡ꞈ｡ᐟ\ -——┑";
+  $("sgT").textContent=priv?"· · · Playlist":"MolList";$("sgS").textContent=priv?"개인용 플리입니다 확성기 이모티콘을 누르면 돌아갑니다":"┍——- /ᐠ｡ꞈ｡ᐟ\ -——┑";
     sel=[];selC=[];selK=[];tagOpen=false;tagOpenC=false;openD.clear();openG.clear();page=0;$("q").value="";litDate="";
   cur=-1;curC=-1;kind="s";rebuild();rebuildC();
   $("stage").classList.remove("play");$("vid").textContent="Select a song to play";$("pT").textContent="WAITING...";$("pA").textContent="Pick a song to enter";$("pD").textContent="--.--.--";$("pS").textContent="--:--";$("pL").textContent="@deoxymole";$("bOpen").hidden=true;
@@ -360,7 +372,7 @@ $("cal").onclick=e=>{
  const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
 const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데뷔")&&srcOk(x)).length+" songs"};
 let calOn=true;try{calOn=localStorage.getItem("calOn")!=="0"}catch(e){}
-const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"▼":"▽"};
+const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"▽":"△"};
 $("bCal").onclick=()=>{calOn=!calOn;try{localStorage.setItem("calOn",calOn?"1":"0")}catch(e){}calUI()};calUI();
 $("bPrev").onclick=()=>step(-1);$("bNext").onclick=()=>step(1);
 RAWP=flat(DAYS);rebuild();RAWCP=COVERS;rebuildC();render();$("list").innerHTML='<div class="empty">📣 Loading sheet...</div>';
@@ -376,6 +388,6 @@ if(SHEET_XLSX)fetch(SHEET_XLSX).then(r=>{if(!r.ok)throw new Error(r.status);retu
  RAWP=fromSheet(get(["live"],0));RAWCP=fromCovers(get(["video"],1));RAWV=fromSheet(get(["playlist"],2));RAWCV=fromCovers(get(["mylist"],3));rebuild();rebuildC();cur=-1;curC=-1;page=0;render();
 }).catch(e=>{console.error(e);$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'});
 </script>
-<script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;b.addEventListener("click",function(){var o=a.hidden;a.hidden=!o;b.classList.toggle("on",o);b.setAttribute("aria-expanded",o)})})();</script>
+<script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;b.addEventListener("click",function(){var o=!a.classList.contains("open");a.classList.toggle("open",o);b.classList.toggle("on",o);b.setAttribute("aria-expanded",o);if(o)setTimeout(function(){a.scrollIntoView({behavior:"smooth",block:"end"})},180)})})();</script>
 </body>
 </html>
