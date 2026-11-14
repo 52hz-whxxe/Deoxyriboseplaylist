@@ -20,21 +20,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .stage{position:relative;padding:24px 18px 10px}
 @media(min-width:960px){.stage{position:sticky;top:0;height:100vh;padding:30px 0;display:flex;flex-direction:column;justify-content:center;justify-content:safe center;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
 .stage::-webkit-scrollbar{display:none}
-.stage>*:not(.mol){flex-shrink:0}}
+.stage>*{flex-shrink:0}}
 .stage>*{position:relative;z-index:1}
 .stage::before{content:"";position:absolute;left:8%;right:8%;top:14%;height:50%;background:radial-gradient(closest-side,#ff2d9530,transparent);filter:blur(46px);opacity:.45;transition:opacity 1.2s;z-index:0;pointer-events:none}
 .stage.play::before{opacity:1}
-.sign>.mol{position:absolute;z-index:-1;top:-12px;right:0;width:200px;opacity:.3;pointer-events:none;overflow:visible;filter:drop-shadow(0 0 6px var(--acc));animation:mfl 11s ease-in-out infinite}
-.mol .rg{fill:var(--acc);fill-opacity:.1;stroke:none}
-.mol .bd{fill:none;stroke:var(--acc);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:mdr 2.4s cubic-bezier(.3,.7,.2,1) both}
-.mol .dt{fill:var(--acc);stroke:none;animation:mfd 1s .9s ease-out both}
-.mol .lb{fill:var(--acc);stroke:none;font-family:var(--mono);font-size:11px;animation:mfd 1s 1.1s ease-out both}
-.mol .rg{animation:mfd 1.4s .6s ease-out both}
-@keyframes mdr{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes mfd{from{opacity:0}}
-@keyframes mfl{50%{transform:translateY(5px) rotate(1.2deg)}}
-@media(min-width:960px){.sign>.mol{top:auto;bottom:-4px}}
-@media (prefers-reduced-motion:reduce){.sign>.mol,.mol *{animation:none!important}}
 .mg{user-select:none;width:24px;height:30px;flex:none;color:var(--acc);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px var(--acc))}
 .sign{font-family:var(--disp);font-size:34px;letter-spacing:.08em;line-height:1;color:var(--acc);text-shadow:0 0 18px #ff2d9588;display:flex;align-items:center;gap:12px}
 .sign{flex-wrap:wrap}.sign .pill{font-family:var(--mono);letter-spacing:.05em;text-shadow:none;color:var(--mute)}.sign .pill.on{border-color:var(--acc);color:var(--acc)}
@@ -77,7 +66,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .pill{border:1px solid var(--line);background:var(--tk);color:var(--ink);padding:10px 16px;border-radius:99px;cursor:pointer;font:inherit;font-size:13px;text-decoration:none}
 .ic:hover,.pill:hover{border-color:var(--acc);color:var(--acc)}
 .side{padding:10px 18px 70px}
-@media(min-width:960px){.side{padding:30px 0 70px}}
+@media(min-width:960px){.side{padding:var(--st,30px) 0 70px}.side.ready{transition:padding-top .42s cubic-bezier(.2,.8,.2,1)}}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);background:#07060ae8;backdrop-filter:blur(10px);padding:10px 0 12px;z-index:5;display:flex;gap:10px;flex-wrap:wrap}
 .seg{display:flex;border:1px solid var(--line);border-radius:10px;padding:3px;background:var(--tk)}
 .seg button{border:0;background:none;color:var(--mute);padding:7px 13px;border-radius:7px;cursor:pointer;font:inherit;font-size:13px}
@@ -194,7 +183,7 @@ input[type=search]:focus{border-color:var(--acc)}
 <body>
 <div class="wrap">
 <section class="stage" id="stage">
-<div class="sign"><svg class="mol" viewBox="-90 -46 159 112" aria-hidden="true"><g class="rg"><polygon points="0.0,-25.5 24.3,-7.9 15.0,20.6 -15.0,20.6 -24.3,-7.9"/></g><path class="bd" pathLength="1" d="M6.9 -20.5L24.3 -7.9M24.3 -7.9L15.0 20.6M15.0 20.6L-15.0 20.6M-15.0 20.6L-24.3 -7.9M-24.3 -7.9L-6.9 -20.5M24.3 -7.9L45.3 -3.4M-15.0 20.6L-20.9 41.3M-24.3 -7.9L-44.3 -30.2M-44.3 -30.2L-65.4 -25.7"/><g class="dt"><circle cx="24.3" cy="-7.9" r="1.9"/><circle cx="15.0" cy="20.6" r="1.9"/><circle cx="-15.0" cy="20.6" r="1.9"/><circle cx="-24.3" cy="-7.9" r="1.9"/><circle cx="-44.3" cy="-30.2" r="1.9"/></g><g class="lb"><text x="0.0" y="-21.5" text-anchor="middle">O</text><text x="53.6" y="2.4" text-anchor="middle">OH</text><text x="-23.3" y="53.5" text-anchor="middle">OH</text><text x="-73.7" y="-19.9" text-anchor="middle">OH</text></g></svg><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
+<div class="sign"><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ＼ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
 <div class="screen"><div class="vid" id="vid">Please select Live</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">choose a song and enter</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
 <div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto" aria-expanded="true" aria-controls="cal"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 10H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button></div>
@@ -337,8 +326,22 @@ function playC(i){
 function step(n){
  if(kind==="c"){const l=C.map((x,i)=>i).sort((a,b)=>C[b].d.localeCompare(C[a].d)),k=l.indexOf(curC)+n;if(l[k]!=null)playC(l[k]);return}
  const day=S.filter(x=>x.d===(S[cur]||{}).d).sort((a,b)=>a.id-b.id),i=day.findIndex(x=>x.id===cur)+n;if(day[i])play(day[i].id)}
+function tkAnim(dt){
+ const sg=dt.querySelector(".songs"),want=!(dt._w!==undefined?dt._w:dt.open);
+ openD.set(dt.dataset.d,want);
+ if(!sg||matchMedia("(prefers-reduced-motion:reduce)").matches){dt.open=want;return}
+ let cur=0;
+ if(dt._a){cur=sg.getBoundingClientRect().height;dt._a.cancel();dt._a=null}else if(dt.open)cur=sg.offsetHeight;
+ dt._w=want;dt.open=true;
+ const full=sg.offsetHeight,cs=getComputedStyle(sg),pt=parseFloat(cs.paddingTop),pb=parseFloat(cs.paddingBottom);
+ const fr=h=>{const f=full?h/full:0;return{height:h+"px",paddingTop:pt*f+"px",paddingBottom:pb*f+"px",opacity:f}};
+ sg.style.overflow="hidden";
+ const a=sg.animate([fr(cur),fr(want?full:0)],{duration:340,easing:"cubic-bezier(.2,.8,.2,1)",fill:"forwards"});
+ dt._a=a;
+ a.onfinish=()=>{if(dt._a!==a)return;dt._a=null;dt._w=undefined;if(!want)dt.open=false;a.cancel();sg.style.overflow=""}
+}
 $("list").onclick=e=>{
- const sm=e.target.closest("summary");if(sm){e.preventDefault();const dt=sm.parentElement;if(dt.classList.contains("nofold"))return;dt.open=!dt.open;openD.set(dt.dataset.d,dt.open);return}
+ const sm=e.target.closest("summary");if(sm){e.preventDefault();const dt=sm.parentElement;if(dt.classList.contains("nofold"))return;tkAnim(dt);return}
  const p=e.target.closest("[data-p]");if(p&&!p.disabled){page=+p.dataset.p;render();window.scrollTo({top:0,behavior:"smooth"});return}
  const c=e.target.closest("[data-c]");if(c){playC(+c.dataset.c);return}
  const r=e.target.closest("[data-id]");if(r){play(+r.dataset.id);return}
@@ -402,5 +405,18 @@ if(SHEET_XLSX)fetch(SHEET_XLSX).then(r=>{if(!r.ok)throw new Error(r.status);retu
 }).catch(e=>{console.error(e);$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'});
 </script>
 <script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;b.addEventListener("click",function(){var o=!a.classList.contains("open");a.classList.toggle("open",o);b.classList.toggle("on",o);b.setAttribute("aria-expanded",o);if(o)setTimeout(function(){a.scrollIntoView({behavior:"smooth",block:"end"})},180)})})();</script>
+<script>(function(){
+var side=document.querySelector(".side"),sign=document.querySelector(".sign"),stage=document.getElementById("stage"),bar=side.querySelector(".bar"),list=document.getElementById("list"),mq=matchMedia("(min-width:960px)");
+function fit(){
+ if(!mq.matches){side.style.removeProperty("--st");return}
+ var top=Math.max(30,Math.round(sign.getBoundingClientRect().top-stage.getBoundingClientRect().top-10));
+ var h=bar.offsetHeight+list.offsetHeight+28;
+ side.style.setProperty("--st",(top+h+20>innerHeight?30:top)+"px")
+}
+fit();requestAnimationFrame(function(){requestAnimationFrame(function(){side.classList.add("ready")})});
+if(window.ResizeObserver){var ro=new ResizeObserver(fit);[list,bar,sign,stage,document.getElementById("calw")].forEach(function(e){e&&ro.observe(e)})}
+addEventListener("resize",fit);mq.addEventListener&&mq.addEventListener("change",fit);
+document.fonts&&document.fonts.ready.then(fit)
+})()</script>
 </body>
 </html>
