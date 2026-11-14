@@ -18,7 +18,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .wrap{position:relative;display:grid;grid-template-columns:1fr;max-width:1360px;margin:0 auto;width:100%}
 @media(min-width:960px){.wrap{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:44px;padding:0 32px}}
 .stage{position:relative;padding:24px 18px 10px}
-@media(min-width:960px){.stage{position:sticky;top:0;height:100vh;padding:30px 0;display:flex;flex-direction:column;justify-content:center;justify-content:safe center;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
+@media(min-width:960px){.stage{position:sticky;top:0;height:100vh;height:100dvh;padding:30px 0;display:flex;flex-direction:column;justify-content:center;justify-content:safe center;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
 .stage::-webkit-scrollbar{display:none}
 .stage>*{flex-shrink:0}}
 .stage>*{position:relative;z-index:1}
@@ -27,14 +27,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .mg{user-select:none;width:24px;height:30px;flex:none;color:var(--acc);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px var(--acc))}
 .sign{font-family:var(--disp);font-size:34px;letter-spacing:.08em;line-height:1;color:var(--acc);text-shadow:0 0 18px #ff2d9588;display:flex;align-items:center;gap:12px}
 .sign{flex-wrap:wrap}.sign .pill{font-family:var(--mono);letter-spacing:.05em;text-shadow:none;color:var(--mute)}.sign .pill.on{border-color:var(--acc);color:var(--acc)}
-.foot{margin-top:auto;border-top:1px solid var(--line);padding:14px 0 calc(14px + env(safe-area-inset-bottom,0px))}
-.fin{max-width:1360px;margin:0 auto;padding:0 18px;text-align:left}
-@media(min-width:960px){.fin{padding:0 32px}}
+.stage>.ctl{z-index:5}#aboutBtn{font-size:17px;line-height:1;padding:0}#aboutBtn.on{border-color:var(--acc);color:var(--acc)}.stage>.signw{z-index:5}
+.fin{position:relative;text-align:left}
 .foot .pill{font-family:var(--mono);letter-spacing:.05em;color:var(--mute)}.foot .pill.on{border-color:var(--acc);color:var(--acc)}
-.about{display:grid;grid-template-rows:0fr;width:fit-content;max-width:min(640px,100%);visibility:hidden;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
+.about{position:absolute;right:0;bottom:calc(100% + 8px);z-index:21;display:grid;grid-template-rows:0fr;width:fit-content;max-width:min(640px,100%);visibility:hidden;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
 .about.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s}
-.abi{min-height:0;overflow:hidden;margin-top:6px;border:1px solid var(--line);border-radius:4px 14px 14px 14px;background:#0d0b11;color:var(--mute);font-size:12px;line-height:1.7;padding:0 14px;text-align:left;opacity:0;clip-path:inset(0 88% 100% 0 round 14px);transition:clip-path .45s cubic-bezier(.2,.8,.2,1),opacity .25s,padding .4s}
-.about.open .abi{opacity:1;clip-path:inset(0 0 0 0 round 14px);padding:12px 14px}
+.abi{min-height:0;overflow:hidden;max-height:calc(100dvh - 120px);border:1px solid var(--line);border-radius:4px 14px 14px 14px;background:#0d0b11;color:var(--mute);font-size:12px;line-height:1.7;padding:0 14px;text-align:left;opacity:0;clip-path:inset(100% 0 0 88% round 14px);transition:clip-path .45s cubic-bezier(.2,.8,.2,1),opacity .25s,padding .4s}
+.about.open .abi{opacity:1;clip-path:inset(0 0 0 0 round 14px);padding:12px 14px;overflow-y:auto}
 .about p{margin:0}.about p+p{margin-top:4px}
 .sign small{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--mute);text-shadow:none}
 .live{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3a2a36}
@@ -152,7 +151,7 @@ input[type=search]:focus{border-color:var(--acc)}
 .cal .cb{display:flex;gap:4px}.cal .ch button[data-cy]{font-size:12px;letter-spacing:-2px;padding:0 2px 0 0}
 .cal .ch button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
 .cal .ch button[data-cm]{width:32px;height:32px;font-size:22px;line-height:1;padding:0 0 3px}
-.cal .cg{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:24px repeat(6,42px);gap:3px;text-align:center;font-family:var(--mono);font-size:11px}
+.cal .cg{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(6,42px);gap:3px;text-align:center;font-family:var(--mono);font-size:11px}
 .cal .cg i{font-style:normal;color:var(--mute);height:24px;line-height:24px}
 .cal .cg>*{height:42px;line-height:42px;display:block;color:var(--mute);opacity:.55}
 .cal .cg button{padding:0;margin:0 auto;width:34px;border-radius:50%;border:1.5px solid #fff;background:transparent;color:var(--ink);opacity:1;font:inherit;height:36px;align-self:center;line-height:33px;cursor:pointer}
@@ -183,10 +182,10 @@ input[type=search]:focus{border-color:var(--acc)}
 <body>
 <div class="wrap">
 <section class="stage" id="stage">
-<div class="sign"><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ＼ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
+<div class="signw"><div class="sign"><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ＼ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div></div>
 <div class="screen"><div class="vid" id="vid">Please select Live</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">choose a song and enter</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
-<div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto" aria-expanded="true" aria-controls="cal"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 10H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button></div>
+<div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="aboutBtn" title="About" aria-label="About" aria-expanded="false" aria-controls="about" style="margin-left:auto">ⓘ</button><button class="ic" id="bCal" title="Calendar" aria-expanded="true" aria-controls="cal"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 10H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button><div class="about" id="about"><div class="abi"><p># An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p># Playback uses only official features and links, so plays are counted as official views.</p><p># TwitCasting requires you to be logged in to watch a live stream, so it always opens in a new tab. You can turn this off with the Twitcast window ON/OFF toggle.</p><p style="font-size:10.5px">Songs marked with ※ do not appear under the Name tab. You can still find them in the Date view or through search.</p></div></div></div>
 <div class="calw" id="calw"><div class="cali"><div class="cal" id="cal"></div></div></div>
 </section>
 <section class="side">
@@ -195,10 +194,7 @@ input[type=search]:focus{border-color:var(--acc)}
 <div id="list"></div>
 </section>
 </div>
-<footer class="foot"><div class="fin">
-<button class="pill sm" id="aboutBtn" aria-expanded="false" aria-controls="about">ⓘ About</button>
-<div class="about" id="about"><div class="abi"><p># An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p># Playback uses only official features and links, so plays are counted as official views.</p><p># TwitCasting requires you to be logged in to watch a live stream, so it always opens in a new tab. You can turn this off with the Twitcast window ON/OFF toggle.</p><p style="font-size:10.5px">Songs marked with ※ do not appear under the Name tab. You can still find them in the Date view or through search.</p></div></div>
-</div></footer>
+
 <script>
 const SONGS_CSV="";
 const COVERS_CSV="";
@@ -240,7 +236,7 @@ const fmt=n=>{const h=Math.floor(n/3600),m=Math.floor(n%3600/60),s=n%60;return(h
 const p2=n=>String(n).padStart(2,"0");
 const debutDate=()=>{const f=S.filter(s=>String(s.title).includes("데")&&/^\d{4}-\d{2}-\d{2}$/.test(s.d)).map(s=>s.d).sort()[0];return f||"2011-12-16"};
 const sd=d=>String(d||"").slice(2).replace(/-/g,".");
-function pager(n){if(n<2)return"";let b="";for(let i=0;i<n;i++)b+=`<button class="${i===page?'on':''}" data-p="${i}">${i+1}</button>`;return `<div class="pager"><button data-p="${page-1}" ${page?'':'disabled'}>‹</button>${b}<button data-p="${page+1}" ${page<n-1?'':'disabled'}>›</button></div>`}
+function pager(n){if(n<2)return"";let b="";const W=5,st=Math.max(0,Math.min(page-2,n-W)),en=Math.min(n,st+W);for(let i=st;i<en;i++)b+=`<button class="${i===page?'on':''}" data-p="${i}">${i+1}</button>`;return `<div class="pager"><button data-p="${page-1}" ${page?'':'disabled'}>‹</button>${b}<button data-p="${page+1}" ${page<n-1?'':'disabled'}>›</button></div>`}
 const COLL=new Intl.Collator("ja",{numeric:true,sensitivity:"base"});
 const SMALL={"ぁ":"あ","ぃ":"い","ぅ":"う","ぇ":"え","ぉ":"お","っ":"つ","ゃ":"や","ゅ":"ゆ","ょ":"よ","ゎ":"わ"};
 const base=t=>String(t||"").normalize("NFKC").replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96)).replace(/[\u3041-\u3096]/g,c=>{c=c.normalize("NFD")[0];return SMALL[c]||c}).replace(/[\u00c0-\u024f]/g,c=>c.normalize("NFD")[0]).toLowerCase();
@@ -325,7 +321,10 @@ function playC(i){
 }
 function step(n){
  if(kind==="c"){const l=C.map((x,i)=>i).sort((a,b)=>C[b].d.localeCompare(C[a].d)),k=l.indexOf(curC)+n;if(l[k]!=null)playC(l[k]);return}
- const day=S.filter(x=>x.d===(S[cur]||{}).d).sort((a,b)=>a.id-b.id),i=day.findIndex(x=>x.id===cur)+n;if(day[i])play(day[i].id)}
+ if(cur<0)return;const cd=S[cur].d,day=S.filter(x=>x.d===cd).sort((a,b)=>a.id-b.id),i=day.findIndex(x=>x.id===cur)+n;if(day[i]){play(day[i].id);return}
+ const ds=[...new Set(S.filter(srcOk).map(x=>x.d))].filter(d=>d!==DB&&/^\d{4}-\d{2}-\d{2}$/.test(d)).sort(),nd=n>0?[...ds].reverse().find(d=>d<cd):ds.find(d=>d>cd);if(!nd)return;
+ const tg=S.filter(x=>x.d===nd&&srcOk(x)).sort((a,b)=>a.id-b.id),t=n>0?tg[0]:tg[tg.length-1];if(!t)return;
+ play(t.id);goDate(nd,true)}
 function tkAnim(dt){
  const sg=dt.querySelector(".songs"),want=!(dt._w!==undefined?dt._w:dt.open);
  openD.set(dt.dataset.d,want);
@@ -367,7 +366,7 @@ function cal(){
  const atMax=calY*12+calM>=MAXI;
  const atMin=calY*12+calM<=mi,tg=has.has(DB)?DB:([...has].sort()[0]||"");
  const first=new Date(calY,calM,1).getDay(),dim=new Date(calY,calM+1,0).getDate();
- let h=`<div class="ch"><span class="cb"><button data-cy="-1" title="back 해" ${atMin?"disabled":""}>‹‹</button><button data-cm="-1" title="back 달" ${atMin?"disabled":""}>‹</button></span><b>${calY}.${p2(calM+1)}</b><span class="cb"><button data-cm="1" title="next 달" ${atMax?"disabled":""}>›</button><button data-cy="1" title="next 해" ${atMax?"disabled":""}>››</button></span></div><div class="cg">`+"일월화수목금토".split("").map(w=>`<i>${w}</i>`).join("");
+ let h=`<div class="ch"><span class="cb"><button data-cy="-1" title="back 해" ${atMin?"disabled":""}>‹‹</button><button data-cm="-1" title="back 달" ${atMin?"disabled":""}>‹</button></span><b>${calY}.${p2(calM+1)}</b><span class="cb"><button data-cm="1" title="next 달" ${atMax?"disabled":""}>›</button><button data-cy="1" title="next 해" ${atMax?"disabled":""}>››</button></span></div><div class="cg">`;
  for(let i=0;i<first;i++)h+="<span></span>";
  const pad=42-first-dim;
  for(let d=1;d<=dim;d++){const k=calY+"-"+p2(calM+1)+"-"+p2(d);h+=k===DB?`<button class="gold ${tg&&tg===litDate?"lit":""}" ${tg?`data-cd="${tg}"`:""} title="DEBUT">${d}</button>`:has.has(k)?`<button class="${k===litDate?"lit":""}${yd.has(k)?" yt":""}" data-cd="${k}">${d}</button>`:`<span>${d}</span>`}
@@ -377,16 +376,18 @@ function cal(){
  [...g.children].forEach((el,i)=>el.style.setProperty("--w",i/7|0));
  if(calDir&&g.animate&&!matchMedia("(prefers-reduced-motion:reduce)").matches)g.animate([{opacity:0,transform:"translateX("+calDir*16+"px)"},{opacity:1,transform:"none"}],{duration:240,easing:"cubic-bezier(.2,.8,.2,1)"});
  calDir=0}
+function goDate(k,syncCal){
+ view="D";document.querySelectorAll(".seg button").forEach(x=>x.classList.toggle("on",x.id==="tD"));
+ sel=[];selC=[];tagOpen=false;tagOpenC=false;$("q").value="";
+ page=Math.floor([...new Set(S.filter(srcOk).map(s=>s.d))].sort().reverse().indexOf(k)/PER);
+ if(syncCal){calY=+k.slice(0,4);calM=+k.slice(5,7)-1}
+ openD.set(k,true);litDate=k;render();
+ const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})}
 $("cal").onclick=e=>{
  const y=e.target.closest("[data-cy]");if(y){calDir=+y.dataset.cy;calY+=+y.dataset.cy;if(calY*12+calM>2027*12+11){calY=2027;calM=11}cal();return}
  const m=e.target.closest("[data-cm]");
  if(m){calDir=+m.dataset.cm;calM+=+m.dataset.cm;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}cal();return}
- const b=e.target.closest("[data-cd]");if(!b)return;const k=b.dataset.cd;
- view="D";document.querySelectorAll(".seg button").forEach(x=>x.classList.toggle("on",x.id==="tD"));
- sel=[];selC=[];tagOpen=false;tagOpenC=false;$("q").value="";
- page=Math.floor([...new Set(S.filter(srcOk).map(s=>s.d))].sort().reverse().indexOf(k)/PER);
- openD.set(k,true);litDate=k;render();
- const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
+ const b=e.target.closest("[data-cd]");if(!b)return;goDate(b.dataset.cd)};
 const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데")&&srcOk(x)).length+" songs"};
 let calOn=true;try{calOn=localStorage.getItem("calOn")!=="0"}catch(e){}
 const calUI=anim=>{const w=$("calw"),b=$("bCal");w.classList.toggle("open",calOn);b.classList.toggle("open",calOn);b.setAttribute("aria-expanded",calOn);
@@ -404,14 +405,22 @@ if(SHEET_XLSX)fetch(SHEET_XLSX).then(r=>{if(!r.ok)throw new Error(r.status);retu
  RAWP=fromSheet(get(["live"],0));RAWCP=fromCovers(get(["video"],1));rebuild();rebuildC();cur=-1;curC=-1;page=0;render();
 }).catch(e=>{console.error(e);$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'});
 </script>
-<script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;b.addEventListener("click",function(){var o=!a.classList.contains("open");a.classList.toggle("open",o);b.classList.toggle("on",o);b.setAttribute("aria-expanded",o);if(o)setTimeout(function(){a.scrollIntoView({behavior:"smooth",block:"end"})},180)})})();</script>
+<script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;
+function set(o){a.classList.toggle("open",o);b.classList.toggle("on",o);b.setAttribute("aria-expanded",o)}
+b.addEventListener("click",function(){set(!a.classList.contains("open"))});
+document.addEventListener("click",function(e){if(a.classList.contains("open")&&!a.contains(e.target)&&!b.contains(e.target))set(false)});
+addEventListener("keydown",function(e){if(e.key==="Escape")set(false)})})();</script>
+
 <script>(function(){
 var side=document.querySelector(".side"),sign=document.querySelector(".sign"),stage=document.getElementById("stage"),bar=side.querySelector(".bar"),list=document.getElementById("list"),mq=matchMedia("(min-width:960px)");
 function fit(){
  if(!mq.matches){side.style.removeProperty("--st");return}
  var top=Math.max(30,Math.round(sign.getBoundingClientRect().top-stage.getBoundingClientRect().top-10));
- var h=bar.offsetHeight+list.offsetHeight+28;
- side.style.setProperty("--st",(top+h+20>innerHeight?30:top)+"px")
+ /* 1→2페이지 점프 방지: 펼쳐진 티켓 높이는 빼고 접힌 기준으로 판단, 페이지가 여러 개면 항상 긴 목록 */
+ var open=0;list.querySelectorAll(".tk .songs").forEach(function(e){open+=e.offsetHeight});
+ var h=bar.offsetHeight+list.offsetHeight-open+28;
+ var tall=!!list.querySelector(".pager")||top+h+20>innerHeight;
+ side.style.setProperty("--st",(tall?30:top)+"px")
 }
 fit();requestAnimationFrame(function(){requestAnimationFrame(function(){side.classList.add("ready")})});
 if(window.ResizeObserver){var ro=new ResizeObserver(fit);[list,bar,sign,stage,document.getElementById("calw")].forEach(function(e){e&&ro.observe(e)})}
