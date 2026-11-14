@@ -241,7 +241,7 @@ const okC=a=>!selC.length||(mode==="AND"?selC.every(t=>a.includes(t)):selC.some(
 const ok=a=>!sel.length||(mode==="AND"?sel.every(t=>a.includes(t)):sel.some(t=>a.includes(t)));
 const fmt=n=>{const h=Math.floor(n/3600),m=Math.floor(n%3600/60),s=n%60;return(h?h+":"+String(m).padStart(2,"0"):m)+":"+String(s).padStart(2,"0")};
 const p2=n=>String(n).padStart(2,"0");
-const debutDate=()=>{const f=S.filter(s=>String(s.title).includes("데뷔")&&/^\d{4}-\d{2}-\d{2}$/.test(s.d)).map(s=>s.d).sort()[0];return f||"2011-12-16"};
+const debutDate=()=>{const f=S.filter(s=>String(s.title).includes("S")&&/^\d{4}-\d{2}-\d{2}$/.test(s.d)).map(s=>s.d).sort()[0];return f||"2011-12-16"};
 const sd=d=>String(d||"").slice(2).replace(/-/g,".");
 function pager(n){if(n<2)return"";let b="";for(let i=0;i<n;i++)b+=`<button class="${i===page?'on':''}" data-p="${i}">${i+1}</button>`;return `<div class="pager"><button data-p="${page-1}" ${page?'':'disabled'}>‹</button>${b}<button data-p="${page+1}" ${page<n-1?'':'disabled'}>›</button></div>`}
 const COLL=new Intl.Collator("ja",{numeric:true,sensitivity:"base"});
@@ -276,7 +276,7 @@ function render(){
   const pages=Math.ceil(hit.length/12);page=Math.min(page,pages-1);
   $("list").innerHTML='<div class="grid">'+hit.slice(page*12,page*12+12).map(c=>{const th=/^https?:/.test(c.thumb||"")?c.thumb:(c.yt?`https://i.ytimg.com/vi/${c.yt}/hqdefault.jpg`:"");return `<div class="cv ${kind==="c"&&c.i===curC?'on':''}" data-c="${c.i}"><div class="th">▶${th?`<img src="${esc(th)}" loading="lazy" alt="" onerror="this.style.display='none'">`:""}</div><b>${esc(c.title||"Loading title…")}</b><small>${esc([(c.d||"").replace(/-/g,"."),c.uploader].filter(Boolean).join(" · "))}</small></div>`}).join("")+'</div>'+pager(pages);
   return}
- const hit=S.filter(s=>(view==="D"||!(String(s.title).includes("데뷔")||isNote(s)))&&srcOk(s)&&(!q||nz([s.title,s.artist,s.composer,s.yomi].filter(Boolean).join(" ")).includes(q))&&ok(s.artists)&&okC(s.composers));
+ const hit=S.filter(s=>(view==="D"||!(String(s.title).includes("s")||isNote(s)))&&srcOk(s)&&(!q||nz([s.title,s.artist,s.composer,s.yomi].filter(Boolean).join(" ")).includes(q))&&ok(s.artists)&&okC(s.composers));
  if(!hit.length){$("list").innerHTML='<div class="empty">📣 Cannot find</div>';return}
  let h="";
  if(view==="D"){const g={};hit.forEach(s=>(g[s.d]=g[s.d]||[]).push(s));
@@ -384,7 +384,7 @@ $("cal").onclick=e=>{
  page=Math.floor([...new Set(S.filter(srcOk).map(s=>s.d))].sort().reverse().indexOf(k)/PER);
  openD.set(k,true);litDate=k;render();
  const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
-const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데뷔")&&srcOk(x)).length+" songs"};
+const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("s")&&srcOk(x)).length+" songs"};
 let calOn=true;try{calOn=localStorage.getItem("calOn")!=="0"}catch(e){}
 const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"▽":"▼"};
 $("bCal").onclick=()=>{calOn=!calOn;try{localStorage.setItem("calOn",calOn?"1":"0")}catch(e){}calUI()};calUI();
