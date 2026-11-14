@@ -228,7 +228,7 @@ const buildC=A=>{C=A.map((c,i)=>({...c,i,yt:(c.url.match(YT)||[])[1],artists:tag
 let rt=null;const later=()=>{clearTimeout(rt);rt=setTimeout(()=>{if(view==="C")render()},250)};
 function fillTitles(){C.forEach(c=>{if(c.title||!c.yt)return;fetch("https://www.youtube.com/oembed?format=json&url="+encodeURIComponent("https://www.youtube.com/watch?v="+c.yt)).then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{c.title=j.title||"";if(!c.uploader)c.uploader=j.author_name||"";later()}).catch(()=>{c.title="(Couldn’t load title)";later()})})}
 const $=id=>document.getElementById(id);
-let view="D",cur=-1,curC=-1,kind="데",pw=null,page=0,sel=[],tagOpen=false;
+let view="D",cur=-1,curC=-1,kind="s",pw=null,page=0,sel=[],tagOpen=false;
 const PER=10;let selK=[];const KORD=["cover","original","appear"];
 let mode="AND",selC=[],tagOpenC=false;const openG=new Set(),openD=new Map();
 let tcWin=true,srcF=0;
@@ -251,7 +251,7 @@ const hd=t=>{const b=base(t).replace(/^[^\p{L}\p{N}]+/u,""),c=[...b][0];if(!c)re
 const who=s=>esc(s.artist);
 const ttl=s=>`<span class="tt">${esc(s.title)}</span>`+(s.comment?`<span class="cm">${esc(s.comment)}</span>`:"")+(s.composer?`<em class="cp">${esc(s.composer)}</em>`:"");
 const isNote=s=>/※/.test(String(s.title));
-const row=(s,i)=>`<div class="song${isNote(s)?' note':''} ${kind==="데"&&s.id===cur?'on':''}" data-id="${s.id}"><span class="no">${p2(i+1)}</span><div class="t"><b>${ttl(s)}</b><small>${who(s)}</small></div><span class="cnt">${fmt(s.t)}</span></div>`;
+const row=(s,i)=>`<div class="song${isNote(s)?' note':''} ${kind==="s"&&s.id===cur?'on':''}" data-id="${s.id}"><span class="no">${p2(i+1)}</span><div class="t"><b>${ttl(s)}</b><small>${who(s)}</small></div><span class="cnt">${fmt(s.t)}</span></div>`;
 function renderTags(){
  const base=view==="C"?C:S,cnt={};base.forEach(x=>x.artists.forEach(t=>cnt[t]=(cnt[t]||0)+1));
  const list=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]||a.localeCompare(b));
@@ -291,7 +291,7 @@ function render(){
    const subs=[...m.entries()].sort((x,y)=>y[1].length-x[1].length||x[0].localeCompare(y[0]));
    const cp=a.find(x=>x.composer)||a[0];
    const o=openG.has(k);
-   h+=`<div class="grp" data-k="${esc(k)}"><div class="h"><b>${ttl(cp)}</b><span class="cnt">${a.length}x</span></div>${!o?`<small class="cnt" style="font-family:inherit">${subs.map(([n])=>esc(n)||"—").join(" / ")}</small>`:subs.map(([n,l])=>`<div class="ar"><small class="cnt" style="font-family:inherit">${esc(n)||"—"}</small><div class="chips">${[...l].sort((x,y)=>y.d.localeCompare(x.d)||y.id-x.id).map(s=>`<span class="chip ${kind==="데"&&s.id===cur?'on':''}" data-id="${s.id}">${esc(s.d).replace(/-/g,".")} · ${fmt(s.t)}</span>`).join("")}</div></div>`).join("")}</div>`});
+   h+=`<div class="grp" data-k="${esc(k)}"><div class="h"><b>${ttl(cp)}</b><span class="cnt">${a.length}x</span></div>${!o?`<small class="cnt" style="font-family:inherit">${subs.map(([n])=>esc(n)||"—").join(" / ")}</small>`:subs.map(([n,l])=>`<div class="ar"><small class="cnt" style="font-family:inherit">${esc(n)||"—"}</small><div class="chips">${[...l].sort((x,y)=>y.d.localeCompare(x.d)||y.id-x.id).map(s=>`<span class="chip ${kind==="s"&&s.id===cur?'on':''}" data-id="${s.id}">${esc(s.d).replace(/-/g,".")} · ${fmt(s.t)}</span>`).join("")}</div></div>`).join("")}</div>`});
   h+=pager(pages)}
  $("list").innerHTML=h;
 }
@@ -299,14 +299,14 @@ function openPop(url){const L=screen.availLeft||0,T0=screen.availTop||0,W=screen
 const popCard=(label,url)=>{$("vid").innerHTML=`<div><div style="font-size:15px;margin-bottom:14px">${label}</div><button class="pill" id="bPop">▶ Open the playback window</button><div style="margin-top:12px;font-size:12px">If the window doesn't open, please press the button</div></div>`;$("bPop").onclick=()=>openPop(url);openPop(url)};
 const mqSel="#pT,.song.on b";let mqObs=null;
 function mqOff(b){const w=b.querySelector(":scope>.mqi");if(w){while(w.firstChild)b.insertBefore(w.firstChild,w);w.remove()}b.classList.remove("mqa","mqm");b.style.removeProperty("--mq");b.style.removeProperty("--mqt")}
-function mqOn(b){mqOff(b);if(!b.firstChild||!b.clientWidth)return;const w=document.createElement("span");w.className="mqi";while(b.firstChild)w.appendChild(b.firstChild);b.appendChild(w);b.classList.add("mqm");const o=w.scrollWidth-b.clientWidth;b.classList.remove("mqm");if(o>1){b.style.setProperty("--mq",o+"px");b.style.setProperty("--mqt",Math.max(7,o/35+4).toFixed(1)+"데");b.classList.add("mqa")}else mqOff(b)}
+function mqOn(b){mqOff(b);if(!b.firstChild||!b.clientWidth)return;const w=document.createElement("span");w.className="mqi";while(b.firstChild)w.appendChild(b.firstChild);b.appendChild(w);b.classList.add("mqm");const o=w.scrollWidth-b.clientWidth;b.classList.remove("mqm");if(o>1){b.style.setProperty("--mq",o+"px");b.style.setProperty("--mqt",Math.max(7,o/35+4).toFixed(1)+"s");b.classList.add("mqa")}else mqOff(b)}
 function mqAll(){if(mqObs)mqObs.disconnect();document.querySelectorAll(".song b").forEach(b=>{if(!b.closest(".song.on"))mqOff(b)});document.querySelectorAll(mqSel).forEach(mqOn);mqWatch()}
 function mqWatch(){if(!mqObs)mqObs=new MutationObserver(()=>mqAll());[$("pT"),$("list")].forEach(n=>n&&mqObs.observe(n,{childList:true,subtree:n.id==="list"}))}
 addEventListener("resize",mqAll);document.addEventListener("toggle",mqAll,true);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(mqAll);
 mqWatch();
 function play(id){
- const s=S[id];cur=id;curC=-1;kind="데";$("stage").classList.add("play");
+ const s=S[id];cur=id;curC=-1;kind="s";$("stage").classList.add("play");
  $("pT").innerHTML=ttl(s);$("pA").textContent=s.artist;$("pD").textContent=sd(s.d);$("pS").textContent=fmt(s.t);$("pL").textContent=s.lab||"@deoxymole";
  const y=s.yt,c=s.tc,ct=c?`https://twitcasting.tv/${c.user}/movie/${c.mv}?t=${c.t}`:"";
  const useTc=c&&(tcWin||!y);
@@ -351,7 +351,7 @@ $("stage").querySelector(".mg").onclick=function(){
   priv=!priv;document.documentElement.classList.toggle("priv",priv);
   $("sgT").textContent=priv?"· · · Playlist":"MolList";$("sgS").textContent=priv?"개인용 플리입니다 확성기 이모티콘을 누르면 돌아갑니다":"┍——- /ᐠ｡ꞈ｡ᐟ\ -——┑";
     sel=[];selC=[];selK=[];tagOpen=false;tagOpenC=false;openD.clear();openG.clear();page=0;$("q").value="";litDate="";
-  cur=-1;curC=-1;kind="데";rebuild();rebuildC();
+  cur=-1;curC=-1;kind="s";rebuild();rebuildC();
   $("stage").classList.remove("play");$("vid").textContent="Select a song to play";$("pT").textContent="WAITING...";$("pA").textContent="Pick a song to enter";$("pD").textContent="--.--.--";$("pS").textContent="--:--";$("pL").textContent="@deoxymole";$("bOpen").hidden=true;
   render();
  },320);
