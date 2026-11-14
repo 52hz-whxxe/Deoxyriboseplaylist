@@ -24,7 +24,17 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .stage>*{position:relative;z-index:1}
 .stage::before{content:"";position:absolute;left:8%;right:8%;top:14%;height:50%;background:radial-gradient(closest-side,#ff2d9530,transparent);filter:blur(46px);opacity:.45;transition:opacity 1.2s;z-index:0;pointer-events:none}
 .stage.play::before{opacity:1}
-.stage>.mol{position:absolute;top:14px;right:0;width:190px;opacity:.17;fill:none;stroke:var(--acc);stroke-width:1.5;stroke-linejoin:round;pointer-events:none}
+.sign>.mol{position:absolute;z-index:-1;top:-12px;right:0;width:200px;opacity:.3;pointer-events:none;overflow:visible;filter:drop-shadow(0 0 6px var(--acc));animation:mfl 11s ease-in-out infinite}
+.mol .rg{fill:var(--acc);fill-opacity:.1;stroke:none}
+.mol .bd{fill:none;stroke:var(--acc);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:mdr 2.4s cubic-bezier(.3,.7,.2,1) both}
+.mol .dt{fill:var(--acc);stroke:none;animation:mfd 1s .9s ease-out both}
+.mol .lb{fill:var(--acc);stroke:none;font-family:var(--mono);font-size:11px;animation:mfd 1s 1.1s ease-out both}
+.mol .rg{animation:mfd 1.4s .6s ease-out both}
+@keyframes mdr{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes mfd{from{opacity:0}}
+@keyframes mfl{50%{transform:translateY(5px) rotate(1.2deg)}}
+@media(min-width:960px){.sign>.mol{top:auto;bottom:-4px}}
+@media (prefers-reduced-motion:reduce){.sign>.mol,.mol *{animation:none!important}}
 .mg{user-select:none;width:24px;height:30px;flex:none;color:var(--acc);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 7px var(--acc))}
 .sign{font-family:var(--disp);font-size:34px;letter-spacing:.08em;line-height:1;color:var(--acc);text-shadow:0 0 18px #ff2d9588;display:flex;align-items:center;gap:12px}
 .sign{flex-wrap:wrap}.sign .pill{font-family:var(--mono);letter-spacing:.05em;text-shadow:none;color:var(--mute)}.sign .pill.on{border-color:var(--acc);color:var(--acc)}
@@ -136,16 +146,27 @@ input[type=search]:focus{border-color:var(--acc)}
 .kb .pill.on{border-color:var(--acc);color:var(--acc)}
 .kb .cnt{margin-left:3px;font-size:11px}
 .empty{color:var(--mute);text-align:center;padding:40px 0}
+.calw{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .38s cubic-bezier(.2,.8,.2,1),visibility 0s .38s}
+.calw.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .38s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.cali{min-height:0;overflow:hidden}
+.cali>.cal{opacity:0;transform:translateY(-12px);transition:opacity .2s,transform .38s cubic-bezier(.2,.8,.2,1)}
+.calw.open .cali>.cal{opacity:1;transform:none}
+@keyframes sw{from{opacity:0;transform:translateY(-9px) scale(.88)}}
+.calw.pop .cg>*{animation:sw .42s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--w,0)*45ms + 70ms)}
+#bCal{display:inline-flex;align-items:center;justify-content:center;padding:0}
+#bCal svg{width:14px;height:14px;fill:currentColor;transition:transform .38s cubic-bezier(.2,.8,.2,1)}
+#bCal:not(.open) svg{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.calw,.cali>.cal,#bCal svg{transition:none}.calw.pop .cg>*{animation:none}}
 .cal{margin-top:14px;padding:10px 12px 12px;border:1px solid var(--line);border-radius:12px;background:var(--tk)}
 .cal .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;height:30px}
 .cal .ch b{font-family:var(--mono);font-size:13px;letter-spacing:.08em}
 .cal .cb{display:flex;gap:4px}.cal .ch button[data-cy]{font-size:12px;letter-spacing:-2px;padding:0 2px 0 0}
 .cal .ch button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
 .cal .ch button[data-cm]{width:32px;height:32px;font-size:22px;line-height:1;padding:0 0 3px}
-.cal .cg{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:24px repeat(6,36px);gap:3px;text-align:center;font-family:var(--mono);font-size:11px}
+.cal .cg{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:24px repeat(6,42px);gap:3px;text-align:center;font-family:var(--mono);font-size:11px}
 .cal .cg i{font-style:normal;color:var(--mute);height:24px;line-height:24px}
-.cal .cg>*{height:36px;line-height:36px;display:block;color:var(--mute);opacity:.55}
-.cal .cg button{padding:0;margin:0 auto;width:34px;border-radius:50%;border:1.5px solid #fff;background:transparent;color:var(--ink);opacity:1;font:inherit;line-height:33px;cursor:pointer}
+.cal .cg>*{height:42px;line-height:42px;display:block;color:var(--mute);opacity:.55}
+.cal .cg button{padding:0;margin:0 auto;width:34px;border-radius:50%;border:1.5px solid #fff;background:transparent;color:var(--ink);opacity:1;font:inherit;height:36px;align-self:center;line-height:33px;cursor:pointer}
 .cal .cg button:hover{background:#ffffff14}
 .cal .cg button.lit{background:#fff;color:#07060a;box-shadow:0 0 10px #ffffff88}
 .cal .cg button.yt{border-color:var(--acc)}
@@ -173,12 +194,11 @@ input[type=search]:focus{border-color:var(--acc)}
 <body>
 <div class="wrap">
 <section class="stage" id="stage">
-<svg class="mol" viewBox="0 0 170 90" aria-hidden="true"><path d="M66 38 79 28.5M91 28.5 104 38 97 60 73 60 66 38M104 38 120 30M73 60 65 74M66 38 48 30 34 38" stroke-linecap="round"/><g style="fill:var(--acc);stroke:none;font-family:var(--mono,monospace);font-size:10px"><text x="85" y="28" text-anchor="middle">O</text><text x="122" y="33">OH</text><text x="62" y="85" text-anchor="middle">HO</text><text x="32" y="42" text-anchor="end">HO</text></g></svg>
-<div class="sign"><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
+<div class="sign"><svg class="mol" viewBox="-90 -46 159 112" aria-hidden="true"><g class="rg"><polygon points="0.0,-25.5 24.3,-7.9 15.0,20.6 -15.0,20.6 -24.3,-7.9"/></g><path class="bd" pathLength="1" d="M6.9 -20.5L24.3 -7.9M24.3 -7.9L15.0 20.6M15.0 20.6L-15.0 20.6M-15.0 20.6L-24.3 -7.9M-24.3 -7.9L-6.9 -20.5M24.3 -7.9L45.3 -3.4M-15.0 20.6L-20.9 41.3M-24.3 -7.9L-44.3 -30.2M-44.3 -30.2L-65.4 -25.7"/><g class="dt"><circle cx="24.3" cy="-7.9" r="1.9"/><circle cx="15.0" cy="20.6" r="1.9"/><circle cx="-15.0" cy="20.6" r="1.9"/><circle cx="-24.3" cy="-7.9" r="1.9"/><circle cx="-44.3" cy="-30.2" r="1.9"/></g><g class="lb"><text x="0.0" y="-21.5" text-anchor="middle">O</text><text x="53.6" y="2.4" text-anchor="middle">OH</text><text x="-23.3" y="53.5" text-anchor="middle">OH</text><text x="-73.7" y="-19.9" text-anchor="middle">OH</text></g></svg><svg class="mg" viewBox="0 0 24 30" aria-hidden="true"><rect x="8" y="2" width="8" height="15" rx="4"/><path d="M4 13v1a8 8 0 0 0 16 0v-1M12 22v5M8 27h8"/></svg><span id="sgT">MolList</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
 <div class="screen"><div class="vid" id="vid">Please select Live</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">choose a song and enter</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
-<div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto">△</button></div>
-<div class="cal" id="cal"></div>
+<div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto" aria-expanded="true" aria-controls="cal"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2 11 10H1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button></div>
+<div class="calw" id="calw"><div class="cali"><div class="cal" id="cal"></div></div></div>
 </section>
 <section class="side">
 <div class="bar"><div class="seg"><button id="tD" class="on">Date</button><button id="tA">Name</button><button id="tC">Video</button></div><input id="q" type="search" placeholder="Search Title · Vocal · Artist">
@@ -333,7 +353,7 @@ $("tagwrap").onclick=e=>{
 $("q").oninput=()=>{page=0;render()};
 [["tD","D"],["tA","A"],["tC","C"]].forEach(([id,v])=>$(id).onclick=()=>{view=v;page=0;sel=[];selC=[];selK=[];tagOpen=false;tagOpenC=false;document.querySelectorAll(".seg button").forEach(b=>b.classList.toggle("on",b.id===id));render()});
 
-let calY=0,calM=0,calSig="",litDate="",DB="2011-12-16";
+let calY=0,calM=0,calSig="",litDate="",DB="2011-12-16",calDir=0,calT;
 function cal(){
  const ok8=d=>/^\d{4}-\d{2}-\d{2}$/.test(d),ds=[...new Set(S.map(s=>s.d).filter(ok8))].sort(),has=new Set(S.filter(srcOk).map(s=>s.d).filter(ok8)),yd=new Set(S.filter(s=>s.yt).map(s=>s.d));
  const sig=ds.length+"|"+(ds[ds.length-1]||"");
@@ -349,11 +369,15 @@ function cal(){
  const pad=42-first-dim;
  for(let d=1;d<=dim;d++){const k=calY+"-"+p2(calM+1)+"-"+p2(d);h+=k===DB?`<button class="gold ${tg&&tg===litDate?"lit":""}" ${tg?`data-cd="${tg}"`:""} title="DEBUT">${d}</button>`:has.has(k)?`<button class="${k===litDate?"lit":""}${yd.has(k)?" yt":""}" data-cd="${k}">${d}</button>`:`<span>${d}</span>`}
  for(let i=0;i<pad;i++)h+="<span></span>";
- $("cal").innerHTML=h+"</div>"}
+ $("cal").innerHTML=h+"</div>";
+ const g=$("cal").querySelector(".cg");
+ [...g.children].forEach((el,i)=>el.style.setProperty("--w",i/7|0));
+ if(calDir&&g.animate&&!matchMedia("(prefers-reduced-motion:reduce)").matches)g.animate([{opacity:0,transform:"translateX("+calDir*16+"px)"},{opacity:1,transform:"none"}],{duration:240,easing:"cubic-bezier(.2,.8,.2,1)"});
+ calDir=0}
 $("cal").onclick=e=>{
- const y=e.target.closest("[data-cy]");if(y){calY+=+y.dataset.cy;if(calY*12+calM>2027*12+11){calY=2027;calM=11}cal();return}
+ const y=e.target.closest("[data-cy]");if(y){calDir=+y.dataset.cy;calY+=+y.dataset.cy;if(calY*12+calM>2027*12+11){calY=2027;calM=11}cal();return}
  const m=e.target.closest("[data-cm]");
- if(m){calM+=+m.dataset.cm;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}cal();return}
+ if(m){calDir=+m.dataset.cm;calM+=+m.dataset.cm;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}cal();return}
  const b=e.target.closest("[data-cd]");if(!b)return;const k=b.dataset.cd;
  view="D";document.querySelectorAll(".seg button").forEach(x=>x.classList.toggle("on",x.id==="tD"));
  sel=[];selC=[];tagOpen=false;tagOpenC=false;$("q").value="";
@@ -362,8 +386,9 @@ $("cal").onclick=e=>{
  const t=[...document.querySelectorAll(".tk")].find(x=>x.dataset.d===k);if(t)t.scrollIntoView({behavior:"smooth",block:"center"})};
 const render0=render;render=function(){render0();cal();$("songCnt").textContent=S.filter(x=>!String(x.title).includes("데")&&srcOk(x)).length+" songs"};
 let calOn=true;try{calOn=localStorage.getItem("calOn")!=="0"}catch(e){}
-const calUI=()=>{$("cal").hidden=!calOn;$("bCal").textContent=calOn?"△":"▼"};
-$("bCal").onclick=()=>{calOn=!calOn;try{localStorage.setItem("calOn",calOn?"1":"0")}catch(e){}calUI()};calUI();
+const calUI=anim=>{const w=$("calw"),b=$("bCal");w.classList.toggle("open",calOn);b.classList.toggle("open",calOn);b.setAttribute("aria-expanded",calOn);
+ if(anim&&calOn){w.classList.remove("pop");void w.offsetWidth;w.classList.add("pop");clearTimeout(calT);calT=setTimeout(()=>w.classList.remove("pop"),1000)}};
+$("bCal").onclick=()=>{calOn=!calOn;try{localStorage.setItem("calOn",calOn?"1":"0")}catch(e){}calUI(true)};calUI();
 $("bPrev").onclick=()=>step(-1);$("bNext").onclick=()=>step(1);
 RAWP=flat(DAYS);rebuild();RAWCP=COVERS;rebuildC();render();$("list").innerHTML='<div class="empty">📣 Loading sheet...</div>';
 const fail=()=>{$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'};
