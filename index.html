@@ -32,7 +32,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .fin{max-width:1360px;margin:0 auto;padding:0 18px;text-align:left}
 @media(min-width:960px){.fin{padding:0 32px}}
 .foot .pill{font-family:var(--mono);letter-spacing:.05em;color:var(--mute)}.foot .pill.on{border-color:var(--acc);color:var(--acc)}
-.about{display:grid;grid-template-rows:0fr;max-width:640px;visibility:hidden;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
+.about{display:grid;grid-template-rows:0fr;width:fit-content;max-width:min(640px,100%);visibility:hidden;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s .4s}
 .about.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),visibility 0s}
 .abi{min-height:0;overflow:hidden;margin-top:6px;border:1px solid var(--line);border-radius:4px 14px 14px 14px;background:#0d0b11;color:var(--mute);font-size:12px;line-height:1.7;padding:0 14px;text-align:left;opacity:0;clip-path:inset(0 88% 100% 0 round 14px);transition:clip-path .45s cubic-bezier(.2,.8,.2,1),opacity .25s,padding .4s}
 .about.open .abi{opacity:1;clip-path:inset(0 0 0 0 round 14px);padding:12px 14px}
@@ -192,7 +192,7 @@ input[type=search]:focus{border-color:var(--acc)}
 </div>
 <footer class="foot"><div class="fin">
 <button class="pill sm" id="aboutBtn" aria-expanded="false" aria-controls="about">ⓘ About</button>
-<div class="about" id="about"><div class="abi"><p>An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p>Playback uses only official features and links, so plays are counted as official views.</p><p>Songs marked with ※ do not appear under the Name tab. You can still find them in the Date view or through search.</p></div></div>
+<div class="about" id="about"><div class="abi"><p># An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p># Playback uses only official features and links, so plays are counted as official views.</p><p># TwitCasting requires you to be logged in to watch a live stream, so it always opens in a new tab. You can turn this off with the Twitcast window ON/OFF toggle.</p><p style="font-size:10.5px">Songs marked with ※ do not appear under the Name tab. You can still find them in the Date view or through search.</p></div></div>
 </div></footer>
 <script>
 const SONGS_CSV="";
