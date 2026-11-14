@@ -24,6 +24,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .mg{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;font-size:26px;line-height:1;filter:drop-shadow(0 0 9px #ff2d95aa);transition:filter .8s}
 .sign{font-family:var(--disp);font-size:34px;letter-spacing:.08em;line-height:1;color:var(--acc);text-shadow:0 0 18px #ff2d9588;display:flex;align-items:center;gap:12px}
 .sign{flex-wrap:wrap}.sign .pill{font-family:var(--mono);letter-spacing:.05em;text-shadow:none;color:var(--mute)}.sign .pill.on{border-color:var(--acc);color:var(--acc)}
+.about{margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#0d0b11;color:var(--mute);font-size:12px;line-height:1.7}
+.about p{margin:0}.about p+p{margin-top:4px}
 .sign small{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--mute);text-shadow:none}
 .live{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3a2a36}
 .play .live{background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:bl 1.4s ease-in-out infinite}
@@ -70,9 +72,12 @@ input[type=search]:focus{border-color:var(--acc)}
 .song b{display:block;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .song small,.cnt{color:var(--mute);font-size:12px}.cnt{font-family:var(--mono)}
 .song .t{min-width:0}
+.song>.cnt{margin-left:14px}
 .song b{display:flex;align-items:baseline}
-.song b .tt{flex:0 0 auto;max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis}
-.song b .cp{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song b .tt{flex:0 1 auto;max-width:100%;min-width:3em;overflow:hidden;text-overflow:ellipsis}
+.cm{font:inherit;color:var(--mute);margin-left:8px}
+.song b .cm{flex:0 100 auto;min-width:2.5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song b .cp{flex:0 10000 auto;max-width:100%;min-width:2.5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .song.note:not(.on){opacity:.5}
 .song.note b{font-size:13px;font-weight:500}
 .song.on{border-left-color:var(--acc);background:#ff2d9514}
@@ -162,7 +167,8 @@ input[type=search]:focus{border-color:var(--acc)}
 <div class="wrap">
 <section class="stage" id="stage">
 <svg class="mol" viewBox="0 0 170 90" aria-hidden="true"><path d="M50 10 76 25 76 55 50 70 24 55 24 25Z"/><path d="M102 10 128 25 128 55 102 70 76 55 76 25"/><path d="M31 29 50 18M70 29 70 51M50 62 31 51" opacity=".6"/><path d="M109 17 121 24M121 56 109 63" opacity=".6"/><path d="M128 25 148 13"/><circle cx="153" cy="10" r="4"/></svg>
-<div class="sign"><span class="mg">📣</span><span id="sgT">SETLIST</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ ——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button></div>
+<div class="sign"><span class="mg">📣</span><span id="sgT">SETLIST</span><small id="sgS">┍——- /ᐠ｡ꞈ｡ᐟ\\ -——┑</small><button class="pill sm" id="switchPopup" title="switch"></button><button class="pill sm" id="switchSrc" title="switch"></button><button class="pill sm" id="songCnt" style="cursor:default"></button><button class="pill sm" id="aboutBtn" aria-expanded="false" aria-controls="about">ⓘ About</button></div>
+<div class="about" id="about" hidden><p>An unofficial setlist archive of もるでお's live songs.</p><p>You can search by song title or artist name, and listen directly on this site.</p><p>Playback uses only official features and links, so plays are counted as official views.</p></div>
 <div class="screen"><div class="vid" id="vid">Please select Live</div></div>
 <div class="nt"><div class="main"><div class="lbl">ID：4877218 | NOW PLAYING</div><b id="pT">WAITING...</b><small id="pA">choose a song and enter</small></div><div class="stub"><span id="pD">--.--.--</span><em id="pS">--:--</em><i id="pL">@deoxymole</i></div></div>
 <div class="ctl"><button class="ic" id="bPrev" title="back">◀</button><button class="ic" id="bNext" title="next">▶</button><a class="pill" id="bOpen" target="_blank" rel="noopener" hidden>Open LINK ↗</a><button class="ic" id="bCal" title="Calendar" style="margin-left:auto">▼</button></div>
@@ -192,7 +198,7 @@ const flat=days=>{const o=[];days.forEach(day=>day.songs.forEach(s=>o.push({d:da
 function parseCSV(t){const r=[];let row=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}else if(ch=='"')q=true;else if(ch==","){row.push(c);c=""}else if(ch=="\n"||ch=="\r"){if(ch=="\r"&&t[i+1]=="\n")i++;row.push(c);r.push(row);row=[];c=""}else c+=ch}if(c||row.length){row.push(c);r.push(row)}return r}
 function colmap(rows,spec){const h=(rows[0]||[]).map(x=>String(x).replace(/\s/g,""));const o={};for(const k in spec){const i=h.findIndex(x=>spec[k][0].some(n=>n.toLowerCase()===x.toLowerCase()));o[k]=i>=0?i:spec[k][1]}return o}
 const gv=(r,i)=>i<0?"":String(r[i]||"").trim();
-function fromSheet(t){const rows=parseCSV(t);if(!rows.length)return[];const c=colmap(rows,{d:[["Date"],0],u:[["Link"],1],s:[[],-1],t:[["Title"],2],a:[["Vocal"],4],c:[["Arist","Artist"],5],x:[["SubLink"],6],l:[["Label"],7],y:[["Yomi"],3]});if(c.x===c.l)c.x=-1;let d="",u="",a="",l="",fy="";const out=[];rows.slice(1).forEach(r=>{const nd=gv(r,c.d);if(nd){d=normD(nd,fy);if(/^\d{4}-/.test(d))fy=d.slice(0,4);u="";a="";l=""}if(gv(r,c.l))l=gv(r,c.l);if(gv(r,c.u))u=gv(r,c.u);if(gv(r,c.x))a=gv(r,c.x);if(!gv(r,c.t))return;out.push({d,url:u,alt:a,start:gv(r,c.s)?sec(gv(r,c.s)):undefined,title:gv(r,c.t),artist:gv(r,c.a),composer:gv(r,c.c),lab:l,yomi:gv(r,c.y)})});return out}
+function fromSheet(t){const rows=parseCSV(t);if(!rows.length)return[];const c=colmap(rows,{d:[["Date"],0],u:[["Link"],1],s:[[],-1],t:[["Title"],2],a:[["Vocal"],4],c:[["Arist","Artist"],5],x:[["Comment"],-1],l:[["Label"],-1],y:[["Yomi"],3]});let d="",u="",a="",l="",fy="";const out=[];rows.slice(1).forEach(r=>{const nd=gv(r,c.d);if(nd){d=normD(nd,fy);if(/^\d{4}-/.test(d))fy=d.slice(0,4);u="";a="";l=""}if(gv(r,c.l))l=gv(r,c.l);if(gv(r,c.u))u=gv(r,c.u);if(!gv(r,c.t))return;out.push({d,url:u,alt:"",comment:gv(r,c.x),start:gv(r,c.s)?sec(gv(r,c.s)):undefined,title:gv(r,c.t),artist:gv(r,c.a),composer:gv(r,c.c),lab:l,yomi:gv(r,c.y)})});return out}
 function fromCovers(t){const rows=parseCSV(t);if(!rows.length)return[];const c=colmap(rows,{u:[["Link"],0],d:[["Date"],1],t:[["Title"],2],p:[["uploader"],3],a:[["vocal"],4],h:[[],-1],g:[["category"],5]});return rows.slice(1).filter(r=>gv(r,c.u)).map(r=>{const up=gv(r,c.p);return{d:normD(gv(r,c.d)),url:gv(r,c.u),title:gv(r,c.t),uploader:up,artist:c.a>=0?gv(r,c.a):up,thumb:gv(r,c.h),kind:gv(r,c.g)}})}
 let S=[],C=[],RAWP=[],RAWV=[],RAWCP=[],RAWCV=[],priv=false;
 const rebuild=()=>build(priv?RAWV:RAWP);
@@ -223,7 +229,7 @@ const SMALL={"ぁ":"あ","ぃ":"い","ぅ":"う","ぇ":"え","ぉ":"お","っ":"
 const base=t=>String(t||"").normalize("NFKC").replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96)).replace(/[\u3041-\u3096]/g,c=>{c=c.normalize("NFD")[0];return SMALL[c]||c}).replace(/[\u00c0-\u024f]/g,c=>c.normalize("NFD")[0]).toLowerCase();
 const hd=t=>{const b=base(t).replace(/^[^\p{L}\p{N}]+/u,""),c=[...b][0];if(!c)return{r:4,l:"#"};if(/[a-z]/.test(c))return{r:0,l:c.toUpperCase()};if(/[ぁ-ゖ]/.test(c))return{r:1,l:c};if(/\p{N}/u.test(c))return{r:2,l:"0-9"};return{r:3,l:c.toUpperCase()}};
 const who=s=>esc(s.artist);
-const ttl=s=>`<span class="tt">${esc(s.title)}</span>`+(s.composer?`<em class="cp">${esc(s.composer)}</em>`:"");
+const ttl=s=>`<span class="tt">${esc(s.title)}</span>`+(s.comment?`<span class="cm">${esc(s.comment)}</span>`:"")+(s.composer?`<em class="cp">${esc(s.composer)}</em>`:"");
 const isNote=s=>/※/.test(String(s.title));
 const row=(s,i)=>`<div class="song${isNote(s)?' note':''} ${kind==="s"&&s.id===cur?'on':''}" data-id="${s.id}"><span class="no">${p2(i+1)}</span><div class="t"><b>${ttl(s)}</b><small>${who(s)}</small></div><span class="cnt">${fmt(s.t)}</span></div>`;
 function renderTags(){
@@ -243,14 +249,14 @@ function renderTags(){
 }
 function render(){
  DB=debutDate();renderTags();
- const q=$("q").value.trim().toLowerCase();
+ const nz=x=>String(x==null?"":x).normalize("NFKC").toLowerCase().replace(/[\u30a1-\u30f6]/g,c=>String.fromCharCode(c.charCodeAt(0)-96)),q=nz($("q").value).trim();
  if(view==="C"){
-  const hit=C.filter(c=>(!q||((c.title||"")+" "+(c.uploader||"")+" "+(c.artist||"")+" "+(c.kind||"")).toLowerCase().includes(q))&&ok(c.artists)&&(!selK.length||(mode==="AND"?selK.every(t=>c.kinds.includes(t)):selK.some(t=>c.kinds.includes(t))))).sort((a,b)=>b.d.localeCompare(a.d));
+  const hit=C.filter(c=>(!q||nz((c.title||"")+" "+(c.uploader||"")+" "+(c.artist||"")+" "+(c.kind||"")).includes(q))&&ok(c.artists)&&(!selK.length||(mode==="AND"?selK.every(t=>c.kinds.includes(t)):selK.some(t=>c.kinds.includes(t))))).sort((a,b)=>b.d.localeCompare(a.d));
   if(!hit.length){$("list").innerHTML='<div class="empty">📣 Cannot find</div>';return}
   const pages=Math.ceil(hit.length/12);page=Math.min(page,pages-1);
   $("list").innerHTML='<div class="grid">'+hit.slice(page*12,page*12+12).map(c=>{const th=/^https?:/.test(c.thumb||"")?c.thumb:(c.yt?`https://i.ytimg.com/vi/${c.yt}/hqdefault.jpg`:"");return `<div class="cv ${kind==="c"&&c.i===curC?'on':''}" data-c="${c.i}"><div class="th">▶${th?`<img src="${esc(th)}" loading="lazy" alt="" onerror="this.style.display='none'">`:""}</div><b>${esc(c.title||"Loading title…")}</b><small>${esc([(c.d||"").replace(/-/g,"."),c.uploader].filter(Boolean).join(" · "))}</small></div>`}).join("")+'</div>'+pager(pages);
   return}
- const hit=S.filter(s=>(view==="D"||!(String(s.title).includes("데뷔")||isNote(s)))&&srcOk(s)&&(!q||(s.title+" "+s.artist+" "+s.composer).toLowerCase().includes(q))&&ok(s.artists)&&okC(s.composers));
+ const hit=S.filter(s=>(view==="D"||!(String(s.title).includes("데뷔")||isNote(s)))&&srcOk(s)&&(!q||nz([s.title,s.artist,s.composer,s.yomi].filter(Boolean).join(" ")).includes(q))&&ok(s.artists)&&okC(s.composers));
  if(!hit.length){$("list").innerHTML='<div class="empty">📣 Cannot find</div>';return}
  let h="";
  if(view==="D"){const g={};hit.forEach(s=>(g[s.d]=g[s.d]||[]).push(s));
@@ -315,7 +321,7 @@ $("stage").querySelector(".mg").onclick=function(){
  if(boingBusy)return;boingBusy=true;const m=this;m.classList.remove("boing");void m.offsetWidth;m.classList.add("boing");
  setTimeout(()=>{
   priv=!priv;document.documentElement.classList.toggle("priv",priv);
-  $("sgT").textContent=priv?"···Playlist":"SETLIST";$("sgS").textContent=priv?"개인용 플리입니다 확성기 이모티콘을 누르면 돌아갑니다":"┍——- /ᐠ｡ꞈ｡ᐟ\ ——┑";
+  $("sgT").textContent=priv?"· · · Playlist":"SETLIST";$("sgS").textContent=priv?"개인용 플리입니다 확성기 이모티콘을 누르면 돌아갑니다":"┍——- /ᐠ｡ꞈ｡ᐟ\ -——┑";
     sel=[];selC=[];selK=[];tagOpen=false;tagOpenC=false;openD.clear();openG.clear();page=0;$("q").value="";litDate="";
   cur=-1;curC=-1;kind="s";rebuild();rebuildC();
   $("stage").classList.remove("play");$("vid").textContent="Select a song to play";$("pT").textContent="WAITING...";$("pA").textContent="Pick a song to enter";$("pD").textContent="--.--.--";$("pS").textContent="--:--";$("pL").textContent="@deoxymole";$("bOpen").hidden=true;
@@ -368,5 +374,6 @@ if(SHEET_XLSX)fetch(SHEET_XLSX).then(r=>{if(!r.ok)throw new Error(r.status);retu
  RAWP=fromSheet(get(["live"],0));RAWCP=fromCovers(get(["video"],1));RAWV=fromSheet(get(["playlist"],2));RAWCV=fromCovers(get(["mylist"],3));rebuild();rebuildC();cur=-1;curC=-1;page=0;render();
 }).catch(e=>{console.error(e);$("list").innerHTML='<div class="empty">Couldn’t load<br><small>Please check again in a moment</small></div>'});
 </script>
+<script>(function(){var b=document.getElementById("aboutBtn"),a=document.getElementById("about");if(!b||!a)return;b.addEventListener("click",function(){var o=a.hidden;a.hidden=!o;b.classList.toggle("on",o);b.setAttribute("aria-expanded",o)})})();</script>
 </body>
 </html>
