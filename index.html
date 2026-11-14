@@ -50,6 +50,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Ap
 .nt .main{padding:16px 20px;min-width:0}
 .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--mute)}
 .nt b{display:block;font-family:var(--disp);font-weight:400;font-size:30px;line-height:1.1;letter-spacing:.02em;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mqi{display:inline-flex;align-items:baseline;flex:none;white-space:nowrap}
+.mqm .mqi>*,.mqa .mqi>*{flex:none!important;max-width:none!important;min-width:0!important;overflow:visible!important;text-overflow:clip!important}
+.mqa{text-overflow:clip!important}
+.mqa .mqi{animation:mq var(--mqt,8s) linear infinite;will-change:transform}
+@keyframes mq{0%,18%{transform:translateX(0)}82%,100%{transform:translateX(calc(-1*var(--mq)))}}
+@media (prefers-reduced-motion:reduce){.mqa .mqi{animation:none}}
 .play .nt b{color:var(--acc);text-shadow:0 0 22px #ff2d9566}
 .nt small{color:var(--mute);font-size:14px}
 .stub{border-left:1px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:12px;text-align:center}
@@ -291,6 +297,14 @@ function render(){
 }
 function openPop(url){const L=screen.availLeft||0,T0=screen.availTop||0,W=screen.availWidth,H=screen.availHeight;pw=window.open(url,"tcplayer"+Date.now(),"width="+Math.round(W/2)+",height="+H+",left="+(L+Math.round(W/2))+",top="+T0)}
 const popCard=(label,url)=>{$("vid").innerHTML=`<div><div style="font-size:15px;margin-bottom:14px">${label}</div><button class="pill" id="bPop">▶ Open the playback window</button><div style="margin-top:12px;font-size:12px">If the window doesn't open, please press the button</div></div>`;$("bPop").onclick=()=>openPop(url);openPop(url)};
+const mqSel="#pT,.song.on b";let mqObs=null;
+function mqOff(b){const w=b.querySelector(":scope>.mqi");if(w){while(w.firstChild)b.insertBefore(w.firstChild,w);w.remove()}b.classList.remove("mqa","mqm");b.style.removeProperty("--mq");b.style.removeProperty("--mqt")}
+function mqOn(b){mqOff(b);if(!b.firstChild||!b.clientWidth)return;const w=document.createElement("span");w.className="mqi";while(b.firstChild)w.appendChild(b.firstChild);b.appendChild(w);b.classList.add("mqm");const o=w.scrollWidth-b.clientWidth;b.classList.remove("mqm");if(o>1){b.style.setProperty("--mq",o+"px");b.style.setProperty("--mqt",Math.max(7,o/35+4).toFixed(1)+"s");b.classList.add("mqa")}else mqOff(b)}
+function mqAll(){if(mqObs)mqObs.disconnect();document.querySelectorAll(".song b").forEach(b=>{if(!b.closest(".song.on"))mqOff(b)});document.querySelectorAll(mqSel).forEach(mqOn);mqWatch()}
+function mqWatch(){if(!mqObs)mqObs=new MutationObserver(()=>mqAll());[$("pT"),$("list")].forEach(n=>n&&mqObs.observe(n,{childList:true,subtree:n.id==="list"}))}
+addEventListener("resize",mqAll);document.addEventListener("toggle",mqAll,true);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(mqAll);
+mqWatch();
 function play(id){
  const s=S[id];cur=id;curC=-1;kind="s";$("stage").classList.add("play");
  $("pT").innerHTML=ttl(s);$("pA").textContent=s.artist;$("pD").textContent=sd(s.d);$("pS").textContent=fmt(s.t);$("pL").textContent=s.lab||"@deoxymole";
